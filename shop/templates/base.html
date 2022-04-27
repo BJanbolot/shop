@@ -15,8 +15,8 @@
     <div class="container-fluid">
         <a href="/" class="navbar-brand">My shop</a>
         <a href="/add-product"><i class="fa-duotone fa-plus"></i></a>
-        <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <form class="d-flex" action="{% url 'shop:search' %}">
+            <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
     </div>
