@@ -1,11 +1,13 @@
-from django.shortcuts import redirect, render, get_object_or_404
-from .models import Category, Product
-from .forms import ProductForm
+from django.shortcuts import render, get_object_or_404, redirect
 
-# Create your views here.
+from .forms import ProductForm
+from .models import Category, Product
+
 
 def get_product_list(request, category_slug=None):
-    '''функция вытаскивает продукты и если слаг приходит заполненым то фильтрует по слагу и в конце возвращаем контексты'''
+    """Функция вытаскивает продукты и если слаг приходит заполненым
+    то фильтрует по слагу и в конце возвращаем контексты
+    """
     category = None
     categories = Category.objects.all()
     products = Product.objects.filter(available=True)
@@ -17,26 +19,36 @@ def get_product_list(request, category_slug=None):
         'categories': categories,
         'category': category
     }
-    return render(request, 'product/product_list.html', context=context)
+    return render(
+        request,
+        'product/product_list.html',
+        context
+    )
+
 
 def get_product_detail(request, product_slug):
-    '''Детализация продукта'''
+    """Детализация продукта"""
     product = get_object_or_404(Product, slug=product_slug)
     context = {
         'product': product
     }
-    return render(request, 'product/product_detail.html', context)
+    return render(
+        request, 'product/product_detail.html', context
+    )
+
 
 def create_product(request):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             product = form.save()
-            # product.objects.create(**form.cleaned_data)
+            # product = Product.objects.create(**form.cleaned_data)
             return redirect(product.get_absolute_url())
     else:
         form = ProductForm()
+
     return render(request, 'product/create_product.html', {'product_form': form})
+
 
 def delete_product(request, product_slug):
     Product.objects.get(slug=product_slug).delete()

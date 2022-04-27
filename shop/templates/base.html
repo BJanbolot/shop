@@ -3,31 +3,28 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+    <title>{% block title %}My shop{% endblock title %}</title>
+   <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <title>{% block title %}My shop{% endblock title %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
 </head>
 <body>
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-          <a href="/" class="navbar-brand">My shop</a>
-          <a href="/add-product"><i class="fa-solid fa-plus"></i></a>
-
-          <form class="d-flex">
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <a href="/" class="navbar-brand">My shop</a>
+        <a href="/add-product"><i class="fa-duotone fa-plus"></i></a>
+        <form class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-        </div>
-      </nav>
-
-    <div id="content">
-    {% block content %}
-
-    {% endblock %}
+        </form>
     </div>
+</nav>
+<div id="content">
+    {% block content %}
+        Empty Content
+    {% endblock content %}
+</div>
 </body>
 </html>

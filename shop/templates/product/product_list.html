@@ -1,53 +1,34 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% load static %}
+
 {% block title %}
-
-    {% if category %}
-        {{category.name}}
-    {% else %}
-        Products
-    {% endif %}
-
-{% endblock title %}
-
+  {% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
 
 {% block content %}
-
-<section class="section-products">
-<div class="container">
-<div class="row justify-content-center text-center">
-        <div class="col-md-8 col-lg-6">
-                <div class="header">
-                        <h3>Featured Product</h3>
-                        <h2>Popular Products</h2>
-                </div>
-        </div>
-</div>
-<div class="row">
-        <!-- Single Product -->
-        {% for product in products %}
-        <div class="col-md-6 col-lg-4 col-xl-3">
-                {% if product.image %}
-                        <div id="product-1" class="single-product" style="background: url('{{product.image.url}}') no-repeat center; background-size: cover; transition: all 0.3s;">
-                {% else %}
-                        <div id="product-1" class="single-product" style="background: url('https://i.ibb.co/L8Nrb7p/1.jpg') no-repeat center; background-size: cover; transition: all 0.3s;">
-                {% endif %}
-                        <div class="part-1">
-<!--                                <ul>-->
-<!--                                        <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>-->
-<!--                                        <li><a href="#"><i class="fas fa-heart"></i></a></li>-->
-<!--                                        <li><a href="#"><i class="fas fa-plus"></i></a></li>-->
-<!--                                        <li><a href="#"><i class="fas fa-expand"></i></a></li>-->
-<!--                                </ul>-->
-                        </div>
-                        <div class="part-2">
-                                <a href="{{product.get_absolute_url}}"><h3 class="product-title" style="color: red; background: black">{{product.name}}</h3></a>
-                                <h4 class="product-old-price" style="color: red">${{product.price}}</h4>
-                                <h4 class="product-price" style="color: red">${{product.price}}</h4>
-                        </div>
-                </div>
-        </div>
-        {% endfor %}
-</div>
-</div>
-</section>
-{% endblock content%}
+  <div id="sidebar">
+    <h3>Categories</h3>
+    <ul>
+      <li {% if not category %}class="selected"{% endif %}>
+        <a href="{% url 'shop:product_list' %}">All</a>
+      </li>
+      {% for cat in categories %}
+        <li {% if category.slug == cat.slug %}class="selected"{% endif %}>
+          <a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+    <h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
+  <div id="main" class="product-list">
+    {% for product in products %}
+      <div class="item">
+        <a href="{{ product.get_absolute_url }}">
+          <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+        </a>
+        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
+        ${{ product.price }}
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
