@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q
-
+from django.core.paginator import Paginator
 from .helpers import product_list_filter_sort
 from .forms import ProductForm
 from .models import Category, Product
+from django.conf import settings
 
 
 def search_product(request):
@@ -37,6 +38,11 @@ def get_product_list(request, category_slug=None):
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
     products = product_list_filter_sort(request, products, category_slug)
+
+    paginator = Paginator(products, settings.PAGINATOR_NUM)
+    page_number = request.GET.get('page')
+    products = paginator.get_page(page_number)
+
     context = {
         'products': products,
         'categories': categories,
