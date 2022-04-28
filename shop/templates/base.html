@@ -26,6 +26,7 @@
         Empty Content
     {% endblock content %}
 </div>
+{% if products %}
 <div class="pagination">
     <span class="step-links">
         {% if products.has_previous %}
@@ -43,5 +44,6 @@
         {% endif %}
     </span>
 </div>
+{% endif %}
 </body>
 </html>

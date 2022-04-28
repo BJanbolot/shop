@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
     # custom application
     'shop',
+    'cart',
+    'order',
 
 ]
 
@@ -132,3 +134,5 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 PAGINATOR_NUM = 2
+
+CART_SESSION_ID = 'cart'
