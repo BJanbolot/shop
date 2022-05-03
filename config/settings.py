@@ -11,10 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-<<<<<<< HEAD
 from decouple import config
-=======
->>>>>>> 9acdc578e8e7bef905ce555b1616f0efe002294a
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,10 +43,7 @@ INSTALLED_APPS = [
     'shop',
     'cart',
     'order',
-<<<<<<< HEAD
     'account',
-=======
->>>>>>> 9acdc578e8e7bef905ce555b1616f0efe002294a
 
 ]
 
@@ -76,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart',
             ],
         },
     },
@@ -91,13 +86,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'shop',
-<<<<<<< HEAD
-        'USER': 'nastya',
+        'USER': 'postgres',
         'PASSWORD': '1',
-=======
-        'USER': 'shop_admin',
-        'PASSWORD': 'shop_psw123',
->>>>>>> 9acdc578e8e7bef905ce555b1616f0efe002294a
         'HOST': 'localhost',
         'PORT': 5432
     }
@@ -146,20 +136,19 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# custom settings
-PAGINATOR_NUM = 4
+PAGINATOR_NUM = 2
+
 CART_SESSION_ID = 'cart'
+
 AUTH_USER_MODEL = 'account.MyUser'
 
 # send email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
+EMAIL_USE_TLS = True 
 EMAIL_PORT = 587
 EMAIL_HOST_USER = config('EMAIL_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_PASSWORD')
 
 # redirect
 LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/account/login/'
-LOGOUT_REDIRECT_URL = '/'
